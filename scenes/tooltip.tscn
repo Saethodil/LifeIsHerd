@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr007c5q2et5q"]
+
+[ext_resource type="Script" uid="uid://kt1stlqsq24q" path="res://scripts/tooltip.gd" id="1_75wrl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dicn"]
+bg_color = Color(0.98039216, 1, 0.8784314, 1)
+
+[node name="Tooltip" type="CanvasLayer"]
+script = ExtResource("1_75wrl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 256.0
+offset_bottom = 256.0
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="TextContainer" type="VBoxContainer" parent="MarginContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 19.0
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/Control/TextContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.6901961, 0, 0.38039216, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Control/TextContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7dicn")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/TextContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer/Control/TextContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.6901961, 0, 0.38039216, 1)
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "Lorem Ipsum"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1

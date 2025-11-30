@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvqi2re34mb8i"]
+
+[ext_resource type="Script" uid="uid://bvld6vo0jdkwt" path="res://scripts/patron.gd" id="1_g6cmi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g6cmi"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_hx3gv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g6cmi"]
+resource_name = "celebrate"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 0.4983906, 2.2900066, 1.36, 0.898),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.6, 1.6), Vector2(1, 1), Vector2(1.6, 1.6), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2v2r5"]
+resource_name = "final_celebration"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1.36, 0.898, 1.36, 0.898),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.6, 1.6), Vector2(1, 1), Vector2(1.6, 1.6), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fcn2m"]
+resource_name = "celebrate_wave"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 0.4983906, 2.29),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.6, 1.6), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2v2r5"]
+_data = {
+&"RESET": SubResource("Animation_hx3gv"),
+&"celebrate": SubResource("Animation_g6cmi"),
+&"celebrate_wave": SubResource("Animation_fcn2m"),
+&"final_celebration": SubResource("Animation_2v2r5")
+}
+
+[node name="Patron" type="Node2D"]
+script = ExtResource("1_g6cmi")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_g6cmi")
+
+[node name="CelebrationTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2v2r5")
+}
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="CelebrationTimer" to="." method="_on_celebration_timer_timeout"]

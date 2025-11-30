@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhjv2vtvct151"]
+
+[ext_resource type="Script" uid="uid://bgfcik37u4cmm" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dq2npqvj2vv1" path="res://scenes/particles/particle_preloader.tscn" id="3_sugp2"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_o5qli")
+
+[node name="ParticlePreloader" parent="." instance=ExtResource("3_sugp2")]
+
+[node name="MenuContainer" type="Node2D" parent="."]
+
+[node name="GameManagerContainer" type="Node2D" parent="."]
+
+[node name="GamePauseContainer" type="Node2D" parent="."]
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[connection signal="completed" from="ParticlePreloader" to="." method="_on_particle_preloader_completed"]

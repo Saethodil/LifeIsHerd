@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm8y0o7byoi0u"]
+
+[ext_resource type="Script" uid="uid://v2rfn272a2ho" path="res://scripts/game_audio_player.gd" id="1_bqqde"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_xf0vv"]
+clip_count = 4
+clip_0/name = &"intro"
+clip_0/auto_advance = 0
+clip_1/name = &"game"
+clip_1/auto_advance = 0
+clip_2/name = &"outro"
+clip_2/auto_advance = 0
+clip_3/name = &"try_again"
+clip_3/auto_advance = 0
+_transitions = {
+Vector2i(0, 1): {
+"fade_beats": 1.0,
+"fade_mode": 0,
+"from_time": 0,
+"to_time": 1
+},
+Vector2i(1, 2): {
+"fade_beats": 1.0,
+"fade_mode": 0,
+"from_time": 0,
+"to_time": 1
+},
+Vector2i(1, 3): {
+"fade_beats": 1.0,
+"fade_mode": 0,
+"from_time": 0,
+"to_time": 1
+}
+}
+
+[node name="GameAudioPlayer" type="Node"]
+script = ExtResource("1_bqqde")
+
+[node name="BackgroundStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamInteractive_xf0vv")
+bus = &"Music"
+
+[node name="EntranceCountdownStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="EntranceStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="GateOpenStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="GrowlStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="EatStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="ChargeStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="HurtStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="SlashStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="ConfettiStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="StompStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="StompEffectStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="FlourishEffectStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"

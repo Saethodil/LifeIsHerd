@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6iielx0f7ox7"]
+
+[ext_resource type="Script" uid="uid://brj7ah4qspfvf" path="res://scripts/health_pickup.gd" id="1_ciapp"]
+[ext_resource type="Texture2D" uid="uid://dyify58s6shoc" path="res://assets/sprites/health_pickup.png" id="2_3p6mu"]
+
+[sub_resource type="Animation" id="Animation_i662h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3p6mu"]
+resource_name = "flying"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.75, 1.5),
+"transitions": PackedFloat32Array(1, 0.25, 4.000002),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ubx2t"]
+_data = {
+&"RESET": SubResource("Animation_i662h"),
+&"flying": SubResource("Animation_3p6mu")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3p6mu"]
+size = Vector2(6, 5)
+
+[node name="HealthPickup" type="Node2D"]
+visible = false
+script = ExtResource("1_ciapp")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ubx2t")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_3p6mu")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("2_3p6mu")
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

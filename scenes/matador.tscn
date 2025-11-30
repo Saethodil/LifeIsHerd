@@ -1,0 +1,205 @@
+[gd_scene load_steps=22 format=3 uid="uid://bu26nb1b27lqv"]
+
+[ext_resource type="Script" uid="uid://64k3j177euy7" path="res://scripts/matador.gd" id="1_f50pn"]
+[ext_resource type="Texture2D" uid="uid://cy440rvri2klh" path="res://assets/sprites/matador.png" id="2_ij6vw"]
+[ext_resource type="PackedScene" uid="uid://ctilpcw7jea3" path="res://scenes/particles/step_particles.tscn" id="2_tq7ch"]
+[ext_resource type="PackedScene" uid="uid://cbm6sy07g5m6j" path="res://scenes/dash.tscn" id="4_ae1gq"]
+[ext_resource type="PackedScene" uid="uid://b5s3v3cwxsef7" path="res://scenes/stamina_bar.tscn" id="5_57our"]
+
+[sub_resource type="Curve" id="Curve_u6cpt"]
+_limits = [0.0, 1.0, 0.0, 1.5]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_57our"]
+curve = SubResource("Curve_u6cpt")
+
+[sub_resource type="Curve" id="Curve_3dpqp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tq7ch"]
+curve = SubResource("Curve_3dpqp")
+
+[sub_resource type="Curve" id="Curve_w3nq8"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 4.2, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ae1gq"]
+curve = SubResource("Curve_w3nq8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_57our"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_tq7ch")
+scale_over_velocity_curve = SubResource("CurveTexture_ae1gq")
+alpha_curve = SubResource("CurveTexture_57our")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57our"]
+radius = 20.0
+
+[sub_resource type="Animation" id="Animation_dd465"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bvtx3"]
+resource_name = "dash"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033, 0.066, 0.1, 0.1666, 0.1667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [22, 23, 24, 25, 8, 26, 27]
+}
+
+[sub_resource type="Animation" id="Animation_tq7ch"]
+resource_name = "flag"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [33, 34, 35, 36, 37, 38]
+}
+
+[sub_resource type="Animation" id="Animation_57our"]
+resource_name = "flourish"
+length = 0.6667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.53333336, 0.6, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]
+}
+
+[sub_resource type="Animation" id="Animation_ghijl"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_44cfe"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1333, 0.2667, 0.4, 0.5333, 0.6667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [11, 12, 13, 14, 15, 16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lhvu3"]
+_data = {
+&"RESET": SubResource("Animation_dd465"),
+&"dash": SubResource("Animation_bvtx3"),
+&"flag": SubResource("Animation_tq7ch"),
+&"flourish": SubResource("Animation_57our"),
+&"idle": SubResource("Animation_ghijl"),
+&"walk": SubResource("Animation_44cfe")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ae1gq"]
+radius = 8.0
+height = 16.0
+
+[node name="Matador" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+slide_on_ceiling = false
+script = ExtResource("1_f50pn")
+
+[node name="StepParticles" parent="." instance=ExtResource("2_tq7ch")]
+process_material = SubResource("ParticleProcessMaterial_57our")
+
+[node name="StaminaBar" parent="." instance=ExtResource("5_57our")]
+unique_name_in_owner = true
+position = Vector2(-10, -15)
+
+[node name="ParryArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParryArea"]
+shape = SubResource("CircleShape2D_57our")
+debug_color = Color(0.5962827, 0.37256923, 1, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ij6vw")
+hframes = 11
+vframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_lhvu3")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ae1gq")
+
+[node name="Dash" parent="." instance=ExtResource("4_ae1gq")]
+
+[node name="ParryBufferTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="ParryDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="depleted" from="StaminaBar" to="." method="_on_stamina_bar_depleted"]
+[connection signal="dash_ended" from="Dash" to="." method="_on_dash_ended"]
+[connection signal="timeout" from="ParryBufferTimer" to="." method="_on_parry_buffer_timer_timeout"]

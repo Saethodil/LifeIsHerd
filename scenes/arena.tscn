@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgp4fkdwsgq72"]
+
+[ext_resource type="Script" uid="uid://cjmqnv0e7sbt4" path="res://scripts/arena.gd" id="1_wl4x5"]
+[ext_resource type="Texture2D" uid="uid://cktaq5pl38586" path="res://assets/sprites/background.png" id="2_wl4x5"]
+[ext_resource type="PackedScene" uid="uid://kmmtg77k4c28" path="res://scenes/particles/dust_particles.tscn" id="3_olpmc"]
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_wl4x5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wl4x5")
+centered = false
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(128, 128)
+
+[node name="DustParticles" parent="." instance=ExtResource("3_olpmc")]
+position = Vector2(-71, 128)

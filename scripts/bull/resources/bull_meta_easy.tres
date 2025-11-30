@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BullMeta" load_steps=8 format=3 uid="uid://cwofxy78343j1"]
+
+[ext_resource type="Texture2D" uid="uid://4uttbl6h7ubo" path="res://assets/sprites/bull_easy_active.png" id="1_400eh"]
+[ext_resource type="Texture2D" uid="uid://dvame43oaq5u" path="res://assets/sprites/bull_easy_focused.png" id="1_g2sam"]
+[ext_resource type="Script" uid="uid://gr2i1q1kecij" path="res://scripts/bull/bull_meta.gd" id="1_ie667"]
+[ext_resource type="Texture2D" uid="uid://drnixcu81t2ky" path="res://assets/sprites/bull_easy_disabled.png" id="1_l6ixy"]
+[ext_resource type="Texture2D" uid="uid://d3o17mbtks3xf" path="res://assets/sprites/bull_easy_active_focused.png" id="2_400eh"]
+[ext_resource type="Texture2D" uid="uid://c30r1ceqtsoka" path="res://assets/sprites/bull-easy-Sheet.png" id="2_shyye"]
+[ext_resource type="Texture2D" uid="uid://dk3fxpoo0sm37" path="res://assets/sprites/bull_easy.png" id="3_400eh"]
+
+[resource]
+script = ExtResource("1_ie667")
+name = "Coby"
+difficulty = "Easy"
+bio = "A gentle giant who keeps to himself until bothered. Always a good crowd warm-up."
+icon_normal = ExtResource("3_400eh")
+icon_focused = ExtResource("1_g2sam")
+icon_active = ExtResource("1_400eh")
+icon_active_focused = ExtResource("2_400eh")
+icon_disabled = ExtResource("1_l6ixy")
+sprite_sheet = ExtResource("2_shyye")
+available_movements = Array[int]([3])
+first_movement = 3
+angry_delay = 2.0
+charge_speed = 200.0
+max_health = 75.0
+tutorial_enabled = true
+metadata/_custom_type_script = "uid://gr2i1q1kecij"

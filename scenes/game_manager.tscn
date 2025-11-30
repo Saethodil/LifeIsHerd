@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://blc8bbt4de5h3"]
+
+[ext_resource type="Script" uid="uid://dv4ak6brnxpl2" path="res://scripts/game_manager.gd" id="1_udu3i"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_udu3i")
+entrance_animated = null
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 512.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_filter = 0
+physics_object_picking = true
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="GameContainer" type="Node2D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true

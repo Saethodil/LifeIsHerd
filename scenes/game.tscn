@@ -1,0 +1,136 @@
+[gd_scene load_steps=12 format=3 uid="uid://ekftkps7ewas"]
+
+[ext_resource type="Script" uid="uid://drr0j8oxwvg31" path="res://scripts/game.gd" id="1_iywne"]
+[ext_resource type="PackedScene" uid="uid://dgp4fkdwsgq72" path="res://scenes/arena.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://dcoxyviluve6" path="res://scenes/bull.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://bt7c37l4hoava" path="res://scripts/bull/bull_stomp_marker.gd" id="3_vtaks"]
+[ext_resource type="PackedScene" uid="uid://df6m5kvxq2bo2" path="res://scenes/bull_hud.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://b56jpy4hsyhcs" path="res://scenes/crowd.tscn" id="6_dinhu"]
+[ext_resource type="PackedScene" uid="uid://dr007c5q2et5q" path="res://scenes/tooltip.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://6pdgh3uud1jh" path="res://scenes/game_countdown.tscn" id="7_gee14"]
+[ext_resource type="PackedScene" uid="uid://bu26nb1b27lqv" path="res://scenes/matador.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://cm8y0o7byoi0u" path="res://scenes/game_audio_player.tscn" id="8_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://3vorui1u04as" path="res://scenes/screen_shake.tscn" id="8_gee14"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_iywne")
+
+[node name="Arena" parent="." instance=ExtResource("1_uwrxv")]
+
+[node name="BullStompMarkers" type="Node2D" parent="."]
+visible = false
+
+[node name="Top" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(128, 40)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(0, 1)
+
+[node name="TopLeft" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(73, 69)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(1, 1)
+
+[node name="TopRight" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(183, 69)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(-1, 1)
+
+[node name="Bottom" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(128, 216)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(0, -1)
+
+[node name="BottomLeft" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(73, 187)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(1, -1)
+
+[node name="BottomRight" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(187, 187)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(-1, -1)
+
+[node name="Left" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(40, 128)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(1, 0)
+
+[node name="Right" type="Marker2D" parent="BullStompMarkers"]
+position = Vector2(216, 128)
+script = ExtResource("3_vtaks")
+stomp_direction = Vector2(-1, 0)
+
+[node name="GrazeRegion" type="Node2D" parent="."]
+visible = false
+
+[node name="CenterMarker" type="Marker2D" parent="GrazeRegion"]
+position = Vector2(128, 128)
+
+[node name="RadiusMarker" type="Marker2D" parent="GrazeRegion"]
+position = Vector2(216, 128)
+
+[node name="EntitiesContainer" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Crowd" parent="EntitiesContainer" instance=ExtResource("6_dinhu")]
+
+[node name="ParryFocusBackground" type="ColorRect" parent="EntitiesContainer"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(0.011764706, 0.011764706, 0.011764706, 0.39215687)
+
+[node name="Bull" parent="EntitiesContainer" node_paths=PackedStringArray("stomp_markers", "follow_node") instance=ExtResource("2_yqjtg")]
+visible = false
+position = Vector2(41, 37)
+initial_face_direction = Vector2(1, 1)
+stomp_markers = [NodePath("../../BullStompMarkers/Top"), NodePath("../../BullStompMarkers/Bottom"), NodePath("../../BullStompMarkers/Left"), NodePath("../../BullStompMarkers/Right"), NodePath("../../BullStompMarkers/TopLeft"), NodePath("../../BullStompMarkers/TopRight"), NodePath("../../BullStompMarkers/BottomLeft"), NodePath("../../BullStompMarkers/BottomRight")]
+follow_node = NodePath("../Matador")
+
+[node name="Matador" parent="EntitiesContainer" instance=ExtResource("7_u5sy4")]
+position = Vector2(219, 219)
+collision_mask = 21
+is_input_enabled = false
+
+[node name="ConfettiContainer" type="Node2D" parent="EntitiesContainer"]
+
+[node name="MatadorGateMarker" type="Marker2D" parent="."]
+position = Vector2(187, 187)
+
+[node name="MatadorExitMarker" type="Marker2D" parent="."]
+position = Vector2(143, 128)
+
+[node name="BullGateMarker" type="Marker2D" parent="."]
+position = Vector2(73, 69)
+
+[node name="BullExitMarker" type="Marker2D" parent="."]
+position = Vector2(113, 128)
+
+[node name="BullHUD" parent="." instance=ExtResource("4_lbhrr")]
+layer = 2
+
+[node name="Tooltip" parent="." node_paths=PackedStringArray("bull", "matador") instance=ExtResource("6_p57ef")]
+bull = NodePath("../EntitiesContainer/Bull")
+matador = NodePath("../EntitiesContainer/Matador")
+
+[node name="GameCountdown" parent="." instance=ExtResource("7_gee14")]
+
+[node name="GameAudioPlayer" parent="." instance=ExtResource("8_0tnpc")]
+
+[node name="ScreenShake" parent="." instance=ExtResource("8_gee14")]
+
+[connection signal="health_depleted" from="EntitiesContainer/Bull" to="." method="_on_bull_health_depleted"]
+[connection signal="parry_tooltip_requested" from="EntitiesContainer/Bull" to="." method="_on_bull_parry_tooltip_requested"]
+[connection signal="shake_requested" from="EntitiesContainer/Bull" to="." method="_on_shake_requested"]
+[connection signal="sound_requested" from="EntitiesContainer/Bull" to="." method="_on_bull_sound_requested"]
+[connection signal="approach_marker_reached" from="EntitiesContainer/Matador" to="." method="_on_matador_approach_marker_reached"]
+[connection signal="health_depleted" from="EntitiesContainer/Matador" to="." method="_on_matador_health_depleted"]
+[connection signal="hurt_started" from="EntitiesContainer/Matador" to="." method="_on_matador_hurt_started"]
+[connection signal="parry_ended" from="EntitiesContainer/Matador" to="." method="_on_matador_parry_ended"]
+[connection signal="parry_started" from="EntitiesContainer/Matador" to="." method="_on_matador_parry_started"]
+[connection signal="shake_requested" from="EntitiesContainer/Matador" to="." method="_on_shake_requested"]
+[connection signal="sound_requested" from="EntitiesContainer/Matador" to="." method="_on_matador_sound_requested"]
+[connection signal="dismiss_started" from="Tooltip" to="." method="_on_tooltip_dismiss_started"]
+[connection signal="dismissed" from="Tooltip" to="." method="_on_tooltip_dismissed"]
+[connection signal="countdown_finished" from="GameCountdown" to="." method="_on_game_countdown_countdown_finished"]
+[connection signal="countdown_tick" from="GameCountdown" to="." method="_on_game_countdown_tick"]

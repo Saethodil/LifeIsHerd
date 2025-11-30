@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://6pdgh3uud1jh"]
+
+[ext_resource type="Script" uid="uid://1cx56la5q8kp" path="res://scripts/game_countdown.gd" id="1_esi4h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_esi4h"]
+font_size = 96
+font_color = Color(0.6901961, 0, 0.38039216, 1)
+
+[node name="GameCountdown" type="CanvasLayer"]
+script = ExtResource("1_esi4h")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_right = 256.0
+offset_bottom = 256.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="CenterContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3..."
+label_settings = SubResource("LabelSettings_esi4h")

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="BullMeta" load_steps=8 format=3 uid="uid://cok10fb81aeo2"]
+
+[ext_resource type="Texture2D" uid="uid://b72c4545fgjbj" path="res://assets/sprites/bull_normal_focused.png" id="1_aop7t"]
+[ext_resource type="Texture2D" uid="uid://djd6ql4i8etdd" path="res://assets/sprites/bull_normal_active.png" id="1_gwbm0"]
+[ext_resource type="Texture2D" uid="uid://bhbwh0h03qnq3" path="res://assets/sprites/bull_normal_disabled.png" id="1_nldfe"]
+[ext_resource type="Texture2D" uid="uid://bpe423ot5y6u5" path="res://assets/sprites/bull_normal_active_focused.png" id="2_gwbm0"]
+[ext_resource type="Texture2D" uid="uid://df0pbesgt4vg5" path="res://assets/sprites/bull_normal.png" id="3_gwbm0"]
+[ext_resource type="Script" uid="uid://gr2i1q1kecij" path="res://scripts/bull/bull_meta.gd" id="4_ryqtx"]
+[ext_resource type="Texture2D" uid="uid://d1g7tkq4b1yuf" path="res://assets/sprites/bull-normal-Sheet.png" id="5_aop7t"]
+
+[resource]
+script = ExtResource("4_ryqtx")
+name = "Chuck"
+difficulty = "Normal"
+difficulty_key = 1
+bio = "Your oldest friend, but still spirited enough to put on a good show."
+icon_normal = ExtResource("3_gwbm0")
+icon_focused = ExtResource("1_aop7t")
+icon_active = ExtResource("1_gwbm0")
+icon_active_focused = ExtResource("2_gwbm0")
+icon_disabled = ExtResource("1_nldfe")
+sprite_sheet = ExtResource("5_aop7t")
+available_movements = Array[int]([2])
+available_attacks = Array[int]([9, 10])
+approach_speed = 55.0
+approach_max_time = 5.0
+charge_count = 2
+frustration_decay_speed = 5.0
+max_health = 200.0
+metadata/_custom_type_script = "uid://gr2i1q1kecij"

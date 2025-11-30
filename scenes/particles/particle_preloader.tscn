@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq2npqvj2vv1"]
+
+[ext_resource type="Script" path="res://scripts/particle_preloader.gd" id="1_c67no"]
+[ext_resource type="Texture2D" uid="uid://cktaq5pl38586" path="res://assets/sprites/background.png" id="2_usj6o"]
+
+[node name="ParticlePreloader" type="CanvasLayer"]
+script = ExtResource("1_c67no")
+
+[node name="RenderContainer" type="Node2D" parent="."]
+
+[node name="RenderTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="ColorRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_usj6o")
+
+[connection signal="timeout" from="RenderTimer" to="." method="_on_render_timer_timeout"]

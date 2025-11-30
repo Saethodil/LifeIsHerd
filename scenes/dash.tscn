@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbm6sy07g5m6j"]
+
+[ext_resource type="Script" uid="uid://c48rjpe8pwfra" path="res://scripts/dash.gd" id="1_avqmg"]
+[ext_resource type="Texture2D" uid="uid://djjmp1psobn6j" path="res://assets/sprites/dash-cooldown.png" id="2_qeljt"]
+
+[sub_resource type="Animation" id="Animation_oo7ob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6xhjm"]
+resource_name = "cooldown"
+length = 0.4333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_06opr"]
+_data = {
+&"RESET": SubResource("Animation_oo7ob"),
+&"cooldown": SubResource("Animation_6xhjm")
+}
+
+[node name="Dash" type="Node2D"]
+script = ExtResource("1_avqmg")
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="CooldownSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_qeljt")
+hframes = 14
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CooldownSprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_06opr")
+}
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="animation_finished" from="CooldownSprite/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

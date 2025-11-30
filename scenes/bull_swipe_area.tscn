@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2mk176lnlqpx"]
+
+[ext_resource type="Texture2D" uid="uid://c78iwipo7mp0m" path="res://assets/sprites/headswipe-Sheet.png" id="1_0kwm6"]
+[ext_resource type="Script" uid="uid://51vium0paxs6" path="res://scripts/bull/bull_swipe_area.gd" id="1_ywy7h"]
+
+[sub_resource type="Animation" id="Animation_ywy7h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionPolygon2D:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(8, -5, 20, -5, 0, 11, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionPolygon2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_0kwm6"]
+resource_name = "swipe"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.4, 0.59999996),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionPolygon2D:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(8, -5, 20, -5, 0, 11, 0, 0), PackedVector2Array(0, 0, 10, -8, 13, -22, 23, -22, 20, -5, 1, 10), PackedVector2Array(0, 1, 10, -7, 13, -19, 13, -29, 9, -38, 19, -38, 23, -29, 23, -15, 16, 0, 1, 10), PackedVector2Array(0, 0, 9, -5, 13, -19, 13, -33, 0, -43, 0, -55, 16, -43, 23, -23, 20, -7, 11, 4, 0, 10)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionPolygon2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n7l8p"]
+_data = {
+&"RESET": SubResource("Animation_ywy7h"),
+&"swipe": SubResource("Animation_0kwm6")
+}
+
+[node name="BullSwipeArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_ywy7h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0kwm6")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_n7l8p")
+}
+speed_scale = 2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-16, 22)
+polygon = PackedVector2Array(8, -5, 20, -5, 0, 11, 0, 0)
+disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
