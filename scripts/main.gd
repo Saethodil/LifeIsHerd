@@ -83,6 +83,7 @@ func _on_menu_settings_requested():
 	main_menu.hide()
 
 func _on_game_menu_requested(game_manager: GameManager):
+	_game_is_pausable = false
 	_show_main_menu(false)
 	# Reset game state for next playthrough
 	game_manager.queue_free()
